@@ -1,0 +1,34 @@
+server:
+  port: 84
+
+
+spring:
+  application:
+    name: nacos-order-consumer
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+    sentinel:
+      transport:
+        dashboard: localhost:8080
+        port: 8719
+      datasource:                     #sentinel数据持久化配置
+        ds1:
+          nacos:
+            server-addr: localhost:8848
+            dataId: nacos-order-consumer
+            groupId: DEFAULT_GROUP
+            data-type: json
+            rule-type: flow
+
+
+service-url:
+  nacos-user-service: http://nacos-payment-provider
+
+#对Feign的支持,该配置通常配置再服务端，用于指定当消费端调用服务端失败之后的服务降级，保护消费者服务器，
+#如果不配置消费者服务其就不会降级，直接报错，原因就是找不到对应的将其降级策略
+feign:
+  sentinel:
+    enabled: true
+

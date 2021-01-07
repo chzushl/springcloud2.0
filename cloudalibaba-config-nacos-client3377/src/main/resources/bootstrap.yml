@@ -1,0 +1,22 @@
+server:
+  port: 3377
+
+spring:
+  application:
+    name: nacos-config-client
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848 #服务注册中心地址
+      config:
+        server-addr: localhost:8848 #配置中心地址
+        file-extension: yaml #指定yaml格式的配置
+        group: TEST_GROUP #默认组,如果不指定就是DEFAULT_GROUP
+        namespace: 6d33d518-9e7a-46d9-a620-c503aba52300 #默认命名空间,如果不指定就是public
+
+
+#alibaba的配置文件的映射规则,${spring.application.name}-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+#本demo中会去nacos的配置中心去抓取nacos-config-client-dev.yaml文件中的内容
+#本配置会去nacos中去找namespace为6d33d518-9e7a-46d9-a620-c503aba52300,group为TEST_GROUP,服务名为nacos-config-client,profile为dev的配置文件
+#namespace-dev,group-TEST_GROUP,profiles-dev,version = 1
+  #Stbek:yww7.#
