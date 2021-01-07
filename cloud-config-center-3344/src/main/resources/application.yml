@@ -1,0 +1,28 @@
+server:
+  port: 3344
+spring:
+  application:
+    name: cloud-config-center
+  cloud:
+    config:
+      server:
+        git:
+          uri: git@github.com:chzushl/springcloud-config.git  #填写你自己的github路径
+          search-paths:
+            - springcloud-config
+      label: main
+  rabbitmq:   #rabbitmq配置
+    host: localhost    #192.168.204.128 #不能带http://
+    port: 5672
+    username: guest
+    password: guest
+eureka:
+  client:
+    service-url:
+      defaultZone:  http://localhost:7001/eureka
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "bus-refresh"
